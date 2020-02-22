@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ApiResource()
@@ -24,6 +26,7 @@ class Users
      * Username
      *
      * @ORM\Column(type="string", length=255)
+     * @NotBlank()
      */
     private $user;
 
@@ -31,6 +34,7 @@ class Users
      * Post Title
      *
      * @ORM\Column(type="string", length=255)
+     * @NotBlank()
      */
     private $post;
 
@@ -38,6 +42,7 @@ class Users
      * User Comment
      *
      * @ORM\Column(type="text")
+     * @NotBlank()
      */
     private $comment;
 
@@ -45,6 +50,7 @@ class Users
      * Post Category. Limited to one catergoy listing
      *
      * @ORM\Column(type="string", length=255)
+     * @NotBlank()
      */
     private $category;
 
