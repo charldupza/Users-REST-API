@@ -10,7 +10,11 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * attributes={
+ *      "formats"={"jsonld","json","csv"={"text/csv"}}
+ *  }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  * @ApiFilter(SearchFilter::class, properties={"user":"partial","post":"partial","category":"partial"})
  */
@@ -27,6 +31,7 @@ class Users
      * Username
      *
      * @ORM\Column(type="string", length=255)
+     *
      * @NotBlank()
      */
     private $user;
@@ -35,6 +40,7 @@ class Users
      * Post Title
      *
      * @ORM\Column(type="string", length=255)
+     *
      * @NotBlank()
      */
     private $post;
@@ -43,6 +49,7 @@ class Users
      * User Comment
      *
      * @ORM\Column(type="text")
+     *
      * @NotBlank()
      */
     private $comment;
@@ -51,6 +58,7 @@ class Users
      * Post Category. Limited to one catergoy listing
      *
      * @ORM\Column(type="string", length=255)
+     *
      * @NotBlank()
      */
     private $category;

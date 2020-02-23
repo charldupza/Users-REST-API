@@ -32,9 +32,11 @@ final class ApiLogEventSubscriber implements EventSubscriberInterface
     {
         $log = new ApiLog;
         $log->setRequest($this->request->getCurrentRequest()->getRequestUri());
+        $log->setMethod($this->request->getCurrentRequest()->getMethod());
+        $log->setFormat($this->request->getCurrentRequest()->getRequestFormat());
+        $log->setContent($this->request->getCurrentRequest()->getContent());
         $log->setResponse($event->getControllerResult());
         $log->setCreatedAt(new \DateTime());
-        dump($log);
         $this->saveCall($log);
     }
 
