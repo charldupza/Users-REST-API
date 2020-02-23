@@ -17,19 +17,34 @@ class ApiLog
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=999)
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $format;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $method;
+
+    /**
+     * @ORM\Column(type="string", length=2000)
      */
     private $request;
 
     /**
-     * @ORM\Column(type="string", length=999)
+     * @ORM\Column(type="string", length=2000)
      */
     private $response;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=999, nullable=true)
      */
-    private $createdAt;
+    private $content;
 
     public function getId(): ?int
     {
@@ -68,6 +83,42 @@ class ApiLog
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMethod(): ?string
+    {
+        return $this->method;
+    }
+
+    public function setMethod(string $method): self
+    {
+        $this->method = $method;
+
+        return $this;
+    }
+
+    public function getFormat(): ?string
+    {
+        return $this->format;
+    }
+
+    public function setFormat(string $format): self
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }
