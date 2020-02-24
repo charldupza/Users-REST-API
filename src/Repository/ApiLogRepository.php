@@ -3,48 +3,20 @@
 namespace App\Repository;
 
 use App\Entity\ApiLog;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @method ApiLog|null find($id, $lockMode = null, $lockVersion = null)
- * @method ApiLog|null findOneBy(array $criteria, array $orderBy = null)
- * @method ApiLog[]    findAll()
- * @method ApiLog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class ApiLogRepository extends ServiceEntityRepository
+class ApiLogRepository implements ApiLogRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, ApiLog::class);
+        $this->entityManager = $entityManager;
+    }
+    public function save(ApiLog $apiLog): void
+    {
+        $this->entityManager->persist($apiLog);
+        $this->entityManager->flush();
     }
 
-    // /**
-    //  * @return ApiLog[] Returns an array of ApiLog objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ApiLog
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

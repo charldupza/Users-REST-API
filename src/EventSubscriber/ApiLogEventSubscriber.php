@@ -4,20 +4,21 @@ namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\ApiLog;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\ApiLogService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class ApiLogEventSubscriber implements EventSubscriberInterface
+class ApiLogEventSubscriber implements EventSubscriberInterface
 {
     private $em;
     public $request;
 
-    public function __construct(EntityManagerInterface $em, RequestStack $requestStack)
+    // Invoke Our Service
+    public function __construct(RequestStack $requestStack, ApiLogService $em)
     {
-        $this->em = $em;
         $this->request = $requestStack;
+        $this->em = $em;
 
     }
 
@@ -28,6 +29,7 @@ final class ApiLogEventSubscriber implements EventSubscriberInterface
         ];
     }
 
+    // Create Log Object
     public function logCall($event)
     {
         $log = new ApiLog;
@@ -37,12 +39,6 @@ final class ApiLogEventSubscriber implements EventSubscriberInterface
         $log->setContent($this->request->getCurrentRequest()->getContent());
         $log->setResponse($event->getControllerResult());
         $log->setCreatedAt(new \DateTime());
-        $this->saveCall($log);
-    }
-
-    private function saveCall($log)
-    {
-        $this->em->persist($log);
-        $this->em->flush();
+        $this->em->saveCall($log); // Send To Service
     }
 }
