@@ -29,7 +29,7 @@ class ApiLogRepository implements ApiLogRepositoryInterface
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         $filesystem = new Filesystem();
-        $filesystem->appendToFile('logs.txt', $serializer->serialize($apiLog, 'json'));
+        $filesystem->appendToFile('logs.txt', $serializer->serialize($apiLog, 'json') . "\n\n");
     }
 
 }
