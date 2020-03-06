@@ -18,7 +18,11 @@ class ApiLogService
     // Send Call To Save Log
     public function saveCall(ApiLog $apilog): void
     {
-        $this->apiLogRepository->save($apilog);
+        try {
+            $this->apiLogRepository->save($apilog);
+        }catch(\Exception $e){
+            error_log($e->getMessage());
+        }
     }
 
 }

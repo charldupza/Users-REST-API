@@ -3,6 +3,12 @@
 Repo for Users REST API built in Symfony 5.
 Playing Around a bit, also realized the migrations was causing an issue for some reason.
 
+# Run
+
+- Create database and update the .env with the details
+- Run Migrations
+- Serve
+
 # Modules/ Tech
 
 - Composer

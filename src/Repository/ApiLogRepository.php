@@ -19,9 +19,9 @@ class ApiLogRepository implements ApiLogRepositoryInterface
     }
     public function save(ApiLog $apiLog): void
     {
-        $this->entityManager->persist($apiLog);
-        $this->entityManager->flush();
-        $this->saveToFile($apiLog);
+            $this->entityManager->persist($apiLog);
+            $this->entityManager->flush();
+            $this->saveToFile($apiLog);
     }
     public function saveToFile(ApiLog $apiLog): void
     {
